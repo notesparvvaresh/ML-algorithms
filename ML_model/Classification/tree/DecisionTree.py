@@ -13,6 +13,8 @@ class DecisionTree:
         self.root = None
 
     def fit(self, X: np.array, y: np.array) -> None:
+        # store a fallback label for empty child splits
+        self._most_common_label = most_common_label(y)
         self.n_feats = X.shape[1] if not self.n_feats else min(self.n_feats, X.shape[1])
         self.root = self._grow_tree(X, y)
 
@@ -20,6 +22,10 @@ class DecisionTree:
         return np.array([self._traverse_tree(x, self.root) for x in X])
 
     def _grow_tree(self, X: np.array, y: np.array, depht: int = 0) -> Node:
+
+        # handle empty input (possible from bootstrap/resampling)
+        if X.size == 0:
+            return Node(value=self._most_common_label)
 
         n_samples, n_features = X.shape
         n_labels = len(np.unique(y))
@@ -29,7 +35,8 @@ class DecisionTree:
             or n_samples < self.min_samples_split
             or n_labels == 1
         ):
-            leaf_value = most_common_label(y)
+            # avoid calling most_common_label on empty y
+            leaf_value = most_common_label(y) if n_samples > 0 else self._most_common_label
             return Node(value=leaf_value)
 
         features_index = np.random.choice(n_features, self.n_feats, replace=True)
