@@ -1,13 +1,12 @@
 import sys
 import os
 import traceback
+import numpy as np
 
 # Add repo root to path so imports work when running the script
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
-
-import numpy as np
 
 
 def run():
@@ -97,7 +96,7 @@ def run():
         print("\nALL QUICK CHECKS COMPLETED SUCCESSFULLY")
         return 0
 
-    except Exception as e:
+    except Exception:
         print("ERROR during tests:")
         traceback.print_exc()
         return 1

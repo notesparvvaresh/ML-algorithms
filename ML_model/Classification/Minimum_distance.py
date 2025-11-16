@@ -1,4 +1,4 @@
-from KNN.metrics import *
+import numpy as np
 
 
 class Minimum_distance:

@@ -1,8 +1,6 @@
 import numpy as np
 from collections import Counter
 
-from metrics import *
-
 
 class UniformKnn:
     def __init__(self, K: int, metric) -> None:

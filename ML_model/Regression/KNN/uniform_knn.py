@@ -1,7 +1,4 @@
 import numpy as np
-from collections import Counter
-
-from metrics import *
 
 
 class UniformKnn:
