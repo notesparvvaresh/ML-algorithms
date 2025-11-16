@@ -1,6 +1,3 @@
-import numpy as np
-
-
 class LDA:
     def __init__(self, n_components=None):
         self.n_components = n_components
